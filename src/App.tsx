@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux'
+/* Imports from react-router */
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+/*
+  createBrowserRouter: onde organizamos as rotas;
+  RouterProvider: elemento que disponibiliza as rotas.
+*/
+
+import EstiloGlobal, { Container } from './styles'
+
+import Home from './pages/Home'
+
+import { store } from './store'
+import Cadastro from './pages/Cadastro'
+
+/* Criação das rotas */
+const rotas = createBrowserRouter([
+  // função que recebe um array de objetos?
+  {
+    path: '/',
+    element: <Home />
+  },
+  {
+    path: '/novo',
+    element: <Cadastro />
+  }
+])
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <EstiloGlobal />
+      <Container>
+        {/* Router provider precisa das rotas */}
+        <RouterProvider router={rotas} />
+      </Container>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
