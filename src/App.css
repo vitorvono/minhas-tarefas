@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
-}
+import { Provider } from 'react-redux'
+/* Imports from react-router */
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+/*
+  createBrowserRouter: onde organizamos as rotas;
+  RouterProvider: elemento que disponibiliza as rotas.
+*/
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+import EstiloGlobal, { Container } from './styles'
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+import Home from './pages/Home'
+
+import { store } from './store'
+import Cadastro from './pages/Cadastro'
+
+/* Criação das rotas */
+const rotas = createBrowserRouter([
+  // função que recebe um array de objetos?
+  {
+    path: '/',
+    element: <Home />
+  },
+  {
+    path: '/novo',
+    element: <Cadastro />
   }
+])
+
+function App() {
+  return (
+    <Provider store={store}>
+      <EstiloGlobal />
+      <Container>
+        {/* Router provider precisa das rotas */}
+        <RouterProvider router={rotas} />
+      </Container>
+    </Provider>
+  )
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+export default App
